@@ -12,10 +12,8 @@ struct ContentView: View {
         ZStack {
             Color.background.ignoresSafeArea()
             VStack {
-                Image("appLogo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 250)
+                LogoView()
+                InicioYRegistroView()
             }
         }
     }
@@ -23,4 +21,28 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+struct LogoView: View {
+    var body: some View {
+        Image("appLogo")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 250)
+    }
+}
+
+struct InicioYRegistroView: View {
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Iniciar Sesión")
+                    .textCase(.uppercase)
+                    .foregroundStyle(.white)
+                Text("Regístrate")
+                    .textCase(.uppercase)
+                    .foregroundStyle(.white)
+            }
+        }
+    }
 }
