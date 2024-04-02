@@ -9,10 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Text("GameStream App is coming! 😄")
+        ZStack {
+            Color.background.ignoresSafeArea()
+            VStack {
+                Image("appLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 250)
+            }
         }
-        .padding()
     }
 }
 
