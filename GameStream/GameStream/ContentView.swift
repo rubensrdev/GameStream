@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack {
+            Spacer()
             Color.background.ignoresSafeArea()
             VStack {
                 LogoView()
@@ -29,20 +30,57 @@ struct LogoView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 250)
+            .padding(.bottom, 40)
     }
 }
 
 struct InicioYRegistroView: View {
+    
+    @State var tipoInicioSesion = true
+    
     var body: some View {
         VStack {
             HStack {
-                Text("Iniciar Sesión")
-                    .textCase(.uppercase)
-                    .foregroundStyle(.white)
-                Text("Regístrate")
-                    .textCase(.uppercase)
-                    .foregroundStyle(.white)
+                Spacer()
+                Button(action: {
+                    print("Pantalla de inicio de sesión")
+                    tipoInicioSesion = true
+                }, label: {
+                    Text("Iniciar sesión")
+                        .textCase(.uppercase)
+                })
+                .foregroundStyle(tipoInicioSesion ? .white : .gray)
+                Spacer()
+                Button(action: {
+                    print("Pantalla de registro")
+                    tipoInicioSesion = false
+                }, label: {
+                    Text("Regístrate")
+                        .textCase(.uppercase)
+                })
+                .foregroundStyle(tipoInicioSesion ? .gray : .white)
+                Spacer()
+            }
+            Spacer(minLength: 42)
+            if tipoInicioSesion { // pantalla inicio de sesión
+                InicioSesionView()
+            } else { // pantalla de registro
+                RegistroView()
             }
         }
+    }
+}
+
+struct InicioSesionView: View {
+    var body: some View {
+        Text("Pantalla de inicio de sesión")
+            .foregroundStyle(.white)
+    }
+}
+
+struct RegistroView: View {
+    var body: some View {
+        Text("Pantalla de registro")
+            .foregroundStyle(.white)
     }
 }
