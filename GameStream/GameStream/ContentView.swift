@@ -9,12 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ZStack {
-            Spacer()
-            Color.background.ignoresSafeArea()
-            VStack {
-                LogoView()
-                InicioYRegistroView()
+        
+        NavigationStack {
+            ZStack {
+                Spacer()
+                Color.background.ignoresSafeArea()
+                VStack {
+                    LogoView()
+                    InicioYRegistroView()
+                }
             }
         }
     }
@@ -76,6 +79,7 @@ struct InicioSesionView: View {
     @State private var correo = ""
     @State private var contraseña = ""
     @State private var mostrarContraseña = false
+    @State private var isPantallaHomeActive = false
     
     var body: some View {
         
@@ -152,6 +156,7 @@ struct InicioSesionView: View {
                             .shadow(color: .white, radius: 3)
                         )
                 })
+                .navigationDestination(isPresented: $isPantallaHomeActive, destination: {Home()})
                 
                 InicioSesionRedesSocialesView()
                 
@@ -164,6 +169,7 @@ struct InicioSesionView: View {
     
     func iniciarSesion() {
         print("Pulsado botón de Iniciar Sesión")
+        isPantallaHomeActive = true
     }
     
     func cambiarEstadoMostrarContraseña() {
