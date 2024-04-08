@@ -34,10 +34,7 @@ struct Home: View {
                 }
                 .tag(1)
             
-            Text("Pantalla HOME")
-                .font(.title)
-                .bold()
-                .fontDesign(.rounded)
+            HomeTab()
                 .tabItem {
                     Image(systemName: "house")
                     Text("Home")
@@ -62,6 +59,22 @@ struct Home: View {
         }
         .tint(.white)
         
+    }
+}
+
+struct HomeTab: View {
+    var body: some View {
+        ZStack {
+            Color.background.ignoresSafeArea()
+            VStack {
+                Text("Pantalla HOME with TAB")
+                    .font(.title)
+                    .bold()
+                    .fontDesign(.rounded)
+                    .foregroundStyle(.white)
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 
