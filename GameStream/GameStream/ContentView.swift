@@ -73,8 +73,8 @@ struct InicioYRegistroView: View {
 
 struct InicioSesionView: View {
     
-    @State var correo = ""
-    @State var contraseña = ""
+    @State private var correo = ""
+    @State private var contraseña = ""
     
     var body: some View {
         
@@ -158,9 +158,9 @@ struct InicioSesionView: View {
 
 struct RegistroView: View {
     
-    @State var correo = ""
-    @State var contraseña = ""
-    @State var confirmarContraseña = ""
+    @State private var correo = ""
+    @State private var contraseña = ""
+    @State private var confirmarContraseña = ""
     
     var body: some View {
         
@@ -268,7 +268,7 @@ struct RegistroView: View {
                             .shadow(color: .white, radius: 3)
                         )
                 })
-                
+
                 InicioSesionRedesSocialesView()
                 
             }
