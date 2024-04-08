@@ -36,7 +36,7 @@ struct LogoView: View {
 
 struct InicioYRegistroView: View {
     
-    @State var tipoInicioSesion = false
+    @State var tipoInicioSesion = true
     
     var body: some View {
         VStack {
@@ -161,6 +161,7 @@ struct RegistroView: View {
     @State private var correo = ""
     @State private var contraseña = ""
     @State private var confirmarContraseña = ""
+    @State private var errorContraseñasIguales = false
     
     var body: some View {
         
@@ -268,6 +269,9 @@ struct RegistroView: View {
                             .shadow(color: .white, radius: 3)
                         )
                 })
+                .alert(isPresented: $errorContraseñasIguales) {
+                    Alert(title: Text("Las contraseñas no coinciden"), message: Text("Por favor, asegúrate de que sean iguales"), dismissButton: .default(Text("OK")))
+                }
 
                 InicioSesionRedesSocialesView()
                 
@@ -284,6 +288,10 @@ struct RegistroView: View {
     
     func registrarse() {
         print("Pulsado botón de Iniciar Sesión")
+        // validación contraseñas iguales
+        if contraseña != confirmarContraseña {
+            errorContraseñasIguales = true
+        }
     }
     
 }
