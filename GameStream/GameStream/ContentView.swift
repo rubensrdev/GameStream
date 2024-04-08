@@ -75,6 +75,7 @@ struct InicioSesionView: View {
     
     @State private var correo = ""
     @State private var contraseña = ""
+    @State private var mostrarContraseña = false
     
     var body: some View {
         
@@ -106,13 +107,24 @@ struct InicioSesionView: View {
                     .foregroundStyle(.darkCian)
                 
                 ZStack(alignment: .leading) {
-                    if contraseña.isEmpty {
-                        Text("Escribe tu contraseña")
-                            .font(.caption)
-                            .foregroundStyle(.gray)
+                    HStack {
+                        if contraseña.isEmpty {
+                            Text("Escribe tu contraseña")
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                        }
+                        if mostrarContraseña {
+                            TextField("", text: $contraseña)
+                                .foregroundStyle(.white)
+                        } else {
+                            SecureField("", text: $contraseña)
+                                .foregroundStyle(.white)
+                        }
+                        Button(action: cambiarEstadoMostrarContraseña, label: {
+                            Image(systemName: "eye.fill")
+                        })
                     }
-                    SecureField("", text: $contraseña)
-                        .foregroundStyle(.white)
+                        
                         
                 }
                 
@@ -152,6 +164,14 @@ struct InicioSesionView: View {
     
     func iniciarSesion() {
         print("Pulsado botón de Iniciar Sesión")
+    }
+    
+    func cambiarEstadoMostrarContraseña() {
+        if mostrarContraseña {
+            mostrarContraseña = false
+        } else {
+            mostrarContraseña = true
+        }
     }
     
 }
