@@ -259,6 +259,41 @@ struct SubModuloHome: View {
                 }
             }
             
+            Text("Videos que podrían gustarte")
+                .textCase(.uppercase)
+                .font(.title3)
+                .foregroundStyle(.white)
+                .bold()
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                .padding(.top)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    Button(action: {
+                        url = urlVideos[4]
+                        print("URL: \(url)")
+                        isPlayerActive = true
+                    },
+                           label: {
+                        Image("tlu2")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
+                    })
+                    Button(action: {
+                        url = urlVideos[5]
+                        print("URL: \(url)")
+                        isPlayerActive = true
+                    },
+                           label: {
+                        Image("d2")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
+                    })
+                }
+            }
+            
         }
         
         NavigationLink(
