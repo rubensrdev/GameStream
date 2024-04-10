@@ -10,9 +10,10 @@ import SwiftUI
 struct GamesView: View {
     
     @ObservedObject var games = ViewModel()
+    
     @State var gameViewIsActive: Bool = false
     @State var url: String = ""
-    @State var titulo: String = ""
+    @State var title: String = ""
     @State var studio: String = ""
     @State var contentRaiting: String = ""
     @State var publicationYear: String = ""
@@ -21,18 +22,52 @@ struct GamesView: View {
     @State var tags: [String] = []
     @State var galleryImages: [String] = []
     
+    let formGrid = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+    ]
+    
     var body: some View {
-        Text("Pantalla JUEGOS")
-            .font(.title)
-            .bold()
-            .fontDesign(.rounded)
-            .onAppear(
+        ZStack {
+            Color(.blueGray).ignoresSafeArea()
+            VStack{
                 
-                perform: {
-                    print("Primer elemento del json: \(games.gamesInfo[0])")
+                Text("Juegos")
+                    .font(.title2)
+                    .bold()
+                    .foregroundStyle(.white)
+                    .padding(EdgeInsets(top: 16, leading: 0, bottom: 64, trailing: 0))
+                
+                ScrollView {
+                    
+                    LazyVGrid(columns: formGrid,spacing: 8 ,content: {
+                        ForEach(games.gamesInfo, id: \.self) {
+                            game in
+                            
+                            Button(action: {
+                                url = game.videosUrls.mobile
+                                title = game.title
+                                studio = game.studio
+                                contentRaiting = game.contentRaiting
+                                publicationYear = game.publicationYear
+                                description = game.description
+                                platforms = game.platforms
+                                tags = game.tags
+                                galleryImages = game.galleryImages
+                                print("Pulsado el juego: \(title)")
+                            }, label: {
+                                Text("\(game.title)")
+                                    .foregroundStyle(.white)
+                            })
+                            
+                        }
+                    })
+                    
                 }
                 
-            )
+            }
+            .padding(.horizontal, 6)
+        }
     }
 }
 
