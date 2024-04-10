@@ -13,15 +13,7 @@ struct GamesView: View {
     @ObservedObject var games = ViewModel()
     
     @State var gameViewIsActive: Bool = false
-    @State var url: String = ""
-    @State var title: String = ""
-    @State var studio: String = ""
-    @State var contentRaiting: String = ""
-    @State var publicationYear: String = ""
-    @State var description: String = ""
-    @State var platforms: [String] = []
-    @State var tags: [String] = []
-    @State var galleryImages: [String] = []
+    @State var gameData: GameData? = nil
     
     let formGrid = [
         GridItem(.flexible()),
@@ -46,16 +38,8 @@ struct GamesView: View {
                             game in
                             
                             Button(action: {
-                                url = game.videosUrls.mobile
-                                title = game.title
-                                studio = game.studio
-                                contentRaiting = game.contentRaiting
-                                publicationYear = game.publicationYear
-                                description = game.description
-                                platforms = game.platforms
-                                tags = game.tags
-                                galleryImages = game.galleryImages
-                                print("Pulsado el juego: \(title)")
+                                gameData = GameData(game: game)
+                                gameViewIsActive = true
                             }, label: {
                                 KFImage(URL(string: game.galleryImages[0])!)
                                     .resizable()
@@ -75,6 +59,14 @@ struct GamesView: View {
                 
             }
             .padding(.horizontal, 6)
+            
+            NavigationLink(
+                destination: GameView(gameData: gameData),
+                isActive: $gameViewIsActive,
+                label: {
+                    EmptyView()
+                })
+            
         }
     }
 }
