@@ -14,7 +14,7 @@ struct Games: Codable {
 struct Game: Codable {
     var title: String
     var studio: String
-    var contentRating: String
+    var contentRaiting: String
     var publicationYear: String
     var description: String
     var platforms: [String]
