@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct GamesView: View {
     
@@ -56,8 +57,15 @@ struct GamesView: View {
                                 galleryImages = game.galleryImages
                                 print("Pulsado el juego: \(title)")
                             }, label: {
-                                Text("\(game.title)")
-                                    .foregroundStyle(.white)
+                                KFImage(URL(string: game.galleryImages[0])!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                                    .padding(.bottom, 12)
+                                /*
+                                AsyncImage(url: URL(string: "\(game.videosUrls.mobile)"))
+                                    .frame(width: 200, height: 200)
+                                 */
                             })
                             
                         }
