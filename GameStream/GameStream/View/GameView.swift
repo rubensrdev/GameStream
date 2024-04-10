@@ -12,10 +12,13 @@ struct GameView: View {
     var gameData: GameData?
     
     var body: some View {
-        Text("Información para el juego \(gameData?.title)!")
-            .textCase(.uppercase)
-            .bold()
-            .font(.title)
+        if let title = gameData?.title {
+            Text("Información para el juego \(title)")
+                .textCase(.uppercase)
+                .bold()
+                .font(.title)
+        }
+        
     }
 }
 
