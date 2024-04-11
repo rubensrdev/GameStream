@@ -62,38 +62,12 @@ struct Home: View {
 
 struct HomeTab: View {
     
-    @State var textoBusqueda = ""
-    
     var body: some View {
         ZStack {
             Color.background.ignoresSafeArea()
             VStack {
                 
                 LogoView()
-                
-                HStack {
-                    
-                    Button(action: buscarVideo, label: {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundStyle(textoBusqueda.isEmpty ? Color(.yellow) : Color(.darkCian))
-                    })
-                    
-                    ZStack(alignment: .leading) {
-                        
-                        if textoBusqueda.isEmpty {
-                            Text("Buscar un video")
-                                .foregroundStyle(.textoBusqueda)
-                        }
-                        
-                        TextField("", text: $textoBusqueda)
-                            .foregroundStyle(.white)
-                        
-                    }
-                    
-                }
-                .padding([.top, .leading, .bottom], 11)
-                .background(.blueGray)
-                .clipShape(Capsule())
                 
                 ScrollView {
                     SubModuloHome()
@@ -107,9 +81,7 @@ struct HomeTab: View {
         
     }
     
-    func buscarVideo() {
-        print("Se va a buscar \(textoBusqueda)")
-    }
+   
     
 }
 
@@ -117,12 +89,43 @@ struct SubModuloHome: View {
     
     @State var url = "https://cdn.cloudflare.steamstatic.com/steam/apps/256658589/movie480.mp4"
     @State var isPlayerActive = false
+    @State var textoBusqueda = ""
+    @State var isGameInfoEmpty = false
     
     let urlVideos:[String] = ["https://cdn.cloudflare.steamstatic.com/steam/apps/256658589/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256671638/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256720061/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256814567/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256705156/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256801252/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256757119/movie480.mp4"]
     
     var body: some View {
         
         VStack {
+            
+            HStack {
+                
+                Button(action: { buscarJuego(textoBusqueda) }, label: {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundStyle(textoBusqueda.isEmpty ? Color(.yellow) : Color(.darkCian))
+                })
+                .alert(isPresented: $isGameInfoEmpty) {
+                    
+                    Alert(title: Text("Error"), message: Text("No se encontró el juego"), dismissButton: .default(Text("aceptar")))
+                    
+                }
+                
+                ZStack(alignment: .leading) {
+                    
+                    if textoBusqueda.isEmpty {
+                        Text("Buscar un video")
+                            .foregroundStyle(.textoBusqueda)
+                    }
+                    
+                    TextField("", text: $textoBusqueda)
+                        .foregroundStyle(.white)
+                    
+                }
+                
+            }
+            .padding([.top, .leading, .bottom], 11)
+            .background(.blueGray)
+            .clipShape(Capsule())
             
             Text("Los más populares")
                 .textCase(.uppercase)
@@ -304,6 +307,12 @@ struct SubModuloHome: View {
         )
         
     }
+    
+    func buscarJuego(_ nombre: String) {
+        print("Se va a buscar el juego \(textoBusqueda)")
+        isGameInfoEmpty = true
+    }
+    
 }
 
 #Preview {
