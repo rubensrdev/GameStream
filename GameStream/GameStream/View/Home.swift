@@ -39,7 +39,7 @@ struct Home: View {
                 }
                 .tag(2)
 
-            Text("Pantalla FAVORITOS")
+            FavView()
                 .font(.title)
                 .bold()
                 .fontDesign(.rounded)
