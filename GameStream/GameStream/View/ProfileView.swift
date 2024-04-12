@@ -18,6 +18,7 @@ struct ProfileView: View {
             VStack {
                 
                 Text("Perfil")
+                    .font(.title3)
                     .foregroundStyle(.white)
                     .bold()
                     .frame(
@@ -57,17 +58,96 @@ struct ProfileView: View {
 }
 
 struct settingsModule: View {
+    
+    @State var isToogleOn = true
+    @State var isEditProfileViewActive = false
+    
     var body: some View {
-        Text("Ajustes")
-            .foregroundStyle(.white)
-            .bold()
-            .frame(
-                minWidth: 0,
-                idealWidth: 100,
-                maxWidth: .infinity,
-                alignment: .leading
-            )
-            .padding(.leading, 18)
+        VStack {
+            Text("Ajustes")
+                .font(.title2)
+                .textCase(.uppercase)
+                .foregroundStyle(.white)
+                .bold()
+                .frame(
+                    minWidth: 0,
+                    idealWidth: 100,
+                    maxWidth: .infinity,
+                    alignment: .leading
+                )
+                .padding(.leading, 18)
+            
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                HStack {
+                    Text("Cuenta")
+                        .foregroundStyle(.white)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundStyle(.white)
+                        
+                }
+                .padding()
+                
+            })
+            .background(.blueGray)
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .padding(.horizontal, 8)
+            
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                HStack {
+                    Text("Notificaciones")
+                        .foregroundStyle(.white)
+                    Spacer()
+                    Toggle("", isOn: $isToogleOn)
+                        
+                }
+                .padding()
+                
+            })
+            .background(.blueGray)
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .padding(.horizontal, 8)
+            
+            Button(action: { isEditProfileViewActive = true }, label: {
+                HStack {
+                    Text("Editar Perfil")
+                        .foregroundStyle(.white)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundStyle(.white)
+                        
+                }
+                .padding()
+                
+            })
+            .background(.blueGray)
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .padding(.horizontal, 8)
+            
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                HStack {
+                    Text("Califica esta aplicación")
+                        .foregroundStyle(.white)
+                    Spacer()
+                    Image(systemName: "star")
+                        .foregroundStyle(.white)
+                        
+                }
+                .padding()
+                
+            })
+            .background(.blueGray)
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .padding(.horizontal, 8)
+            
+            NavigationLink(
+                destination: EditProfileView(),
+                isActive: isEditProfileViewActive,
+                label: {
+                    EmptyView()
+                })
+            
+        }
     }
 }
 
