@@ -15,7 +15,7 @@ struct Home: View {
     var body: some View {
         TabView(selection: $tabSeleccionado) {
             
-            Text("Pantalla PERFIL")
+            ProfileView()
                 .font(.title)
                 .bold()
                 .fontDesign(.rounded)
