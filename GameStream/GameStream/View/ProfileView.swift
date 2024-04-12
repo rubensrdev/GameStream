@@ -63,7 +63,7 @@ struct settingsModule: View {
     @State var isEditProfileViewActive = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 3) {
             Text("Ajustes")
                 .font(.title2)
                 .textCase(.uppercase)
@@ -142,7 +142,7 @@ struct settingsModule: View {
             
             NavigationLink(
                 destination: EditProfileView(),
-                isActive: isEditProfileViewActive,
+                isActive: $isEditProfileViewActive,
                 label: {
                     EmptyView()
                 })
