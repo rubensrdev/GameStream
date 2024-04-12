@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct Resultados: Codable {
+    var results: [Game]
+}
+
 struct Games: Codable {
     var games: [Game]
 }

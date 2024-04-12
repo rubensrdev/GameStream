@@ -70,7 +70,7 @@ struct HomeTab: View {
                 LogoView()
                 
                 ScrollView {
-                    SubModuloHome()
+                    SubModuloHome(searchedGameData: GameData(game: Game(title: "", studio: "", contentRaiting: "", publicationYear: "", description: "", platforms: [], tags: [], videosUrls: videoUrl(mobile: "", tablet: ""), galleryImages: [])))
                 }
                 
             }
@@ -91,6 +91,11 @@ struct SubModuloHome: View {
     @State var isPlayerActive = false
     @State var textoBusqueda = ""
     @State var isGameInfoEmpty = false
+    
+    @ObservedObject var gameFound = SearchGame()
+    @State var isGameViewActive = false
+    @State var searchedGameData: GameData
+    
     
     let urlVideos:[String] = ["https://cdn.cloudflare.steamstatic.com/steam/apps/256658589/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256671638/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256720061/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256814567/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256705156/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256801252/movie480.mp4","https://cdn.cloudflare.steamstatic.com/steam/apps/256757119/movie480.mp4"]
     
@@ -296,10 +301,21 @@ struct SubModuloHome: View {
             
         }
         
+        /*
+         NavigationLink(
+             destination: VideoPlayer(player: AVPlayer(url: URL(string: url)!))
+                 .frame(width: 400, height: 300),
+             isActive: $isPlayerActive,
+             label: {
+                 EmptyView()
+             }
+             
+         )
+         */
+        
         NavigationLink(
-            destination: VideoPlayer(player: AVPlayer(url: URL(string: url)!))
-                .frame(width: 400, height: 300),
-            isActive: $isPlayerActive,
+            destination: GameView(gameData: searchedGameData),
+            isActive: $isGameViewActive,
             label: {
                 EmptyView()
             }
@@ -308,9 +324,24 @@ struct SubModuloHome: View {
         
     }
     
-    func buscarJuego(_ nombre: String) {
-        print("Se va a buscar el juego \(textoBusqueda)")
-        isGameInfoEmpty = true
+    func buscarJuego(_ name: String) {
+        gameFound.search(name)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+            if gameFound.gameInfo.count == 0 {
+                isGameInfoEmpty = true
+            } else {
+                searchedGameData.url = gameFound.gameInfo[0].videosUrls.mobile
+                searchedGameData.title = gameFound.gameInfo[0].title
+                searchedGameData.studio = gameFound.gameInfo[0].studio
+                searchedGameData.contentRaiting = gameFound.gameInfo[0].contentRaiting
+                searchedGameData.publicationYear = gameFound.gameInfo[0].publicationYear
+                searchedGameData.description = gameFound.gameInfo[0].description
+                searchedGameData.tags = gameFound.gameInfo[0].tags
+                searchedGameData.galleryImages = gameFound.gameInfo[0].galleryImages
+                isGameViewActive = true
+            }
+        })
+        
     }
     
 }
