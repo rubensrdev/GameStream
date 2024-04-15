@@ -92,7 +92,7 @@ struct InicioSesionView: View {
                 ZStack(alignment: .leading) {
                     
                     if correo.isEmpty {
-                        Text("ejemplo@email.com")
+                        Text(verbatim: "ejemplo@email.com")
                             .font(.caption)
                             .foregroundStyle(.gray)
                     }
@@ -126,6 +126,7 @@ struct InicioSesionView: View {
                         }
                         Button(action: cambiarEstadoMostrarContraseña, label: {
                             Image(systemName: "eye.fill")
+                                .foregroundStyle(.darkCian)
                         })
                     }
                         
