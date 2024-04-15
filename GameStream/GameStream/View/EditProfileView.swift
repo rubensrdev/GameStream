@@ -129,7 +129,10 @@ struct EditModule: View {
     }
     
     func updateData() {
-        print("Guardado y recuperando datos de usuario")
+        print("Guardado y actualización de datos de usuario")
+        let manejadorDatos = SaveData()
+        let resultado = manejadorDatos.guardar(correo: correo, contraseña: contraseña, nombre: nombre)
+        print("Resultado: \(resultado)")
     }
     
     func cambiarEstadoMostrarContraseña() {
