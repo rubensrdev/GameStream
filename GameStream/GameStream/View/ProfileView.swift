@@ -76,11 +76,13 @@ struct settingsModule: View {
                     alignment: .leading
                 )
                 .padding(.leading, 18)
-            
+                .padding(.bottom)
+          
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                 HStack {
                     Text("Cuenta")
                         .foregroundStyle(.white)
+                        .font(.title3)
                     Spacer()
                     Image(systemName: "chevron.right")
                         .foregroundStyle(.white)
@@ -97,6 +99,7 @@ struct settingsModule: View {
                 HStack {
                     Text("Notificaciones")
                         .foregroundStyle(.white)
+                        .font(.title3)
                     Spacer()
                     Toggle("", isOn: $isToogleOn)
                         
@@ -112,6 +115,7 @@ struct settingsModule: View {
                 HStack {
                     Text("Editar Perfil")
                         .foregroundStyle(.white)
+                        .font(.title3)
                     Spacer()
                     Image(systemName: "chevron.right")
                         .foregroundStyle(.white)
@@ -128,6 +132,7 @@ struct settingsModule: View {
                 HStack {
                     Text("Califica esta aplicación")
                         .foregroundStyle(.white)
+                        .font(.title3)
                     Spacer()
                     Image(systemName: "star")
                         .foregroundStyle(.white)
