@@ -80,6 +80,7 @@ struct InicioSesionView: View {
     @State private var contraseña = ""
     @State private var mostrarContraseña = false
     @State private var isPantallaHomeActive = false
+    @State private var errorInicioDeSesion = false
     
     var body: some View {
         
@@ -158,6 +159,11 @@ struct InicioSesionView: View {
                         )
                 })
                 .navigationDestination(isPresented: $isPantallaHomeActive, destination: {Home()})
+                .alert(isPresented: $errorInicioDeSesion) {
+                    Alert(title: Text("❌ Datos Erroneos"),
+                          message: Text("Los datos introducidos no son correctos o no existen, por favor revísalos."),
+                          dismissButton: Alert.Button.default(Text("Aceptar")))
+                }
                 
                 InicioSesionRedesSocialesView()
                 
@@ -170,7 +176,16 @@ struct InicioSesionView: View {
     
     func iniciarSesion() {
         print("Pulsado botón de Iniciar Sesión")
-        isPantallaHomeActive = true
+        let manejadorDatos = SaveData()
+        var datosInicioCorrectos: Bool = manejadorDatos.validar(correo: correo, contraseña: contraseña)
+        if datosInicioCorrectos {
+            isPantallaHomeActive = true
+            errorInicioDeSesion = false
+        } else {
+            isPantallaHomeActive = false
+            errorInicioDeSesion = true
+        }
+
     }
     
     func cambiarEstadoMostrarContraseña() {
@@ -189,6 +204,7 @@ struct RegistroView: View {
     @State private var contraseña = ""
     @State private var confirmarContraseña = ""
     @State private var errorContraseñasIguales = false
+    @State private var registroOk = false
     
     var body: some View {
         
@@ -299,6 +315,9 @@ struct RegistroView: View {
                 .alert(isPresented: $errorContraseñasIguales) {
                     Alert(title: Text("Las contraseñas no coinciden"), message: Text("Por favor, asegúrate de que sean iguales"), dismissButton: .default(Text("OK")))
                 }
+                .alert(isPresented: $registroOk) {
+                    Alert(title: Text("✅ Registro completado"), message: Text("Ya puedes ir a la pestaña de inición de sesión y utilizar tus datos"), dismissButton: .default(Text("OK")))
+                }
 
                 InicioSesionRedesSocialesView()
                 
@@ -314,11 +333,20 @@ struct RegistroView: View {
     }
     
     func registrarse() {
-        print("Pulsado botón de Iniciar Sesión")
+        print("Pulsado botón de Registro")
         // validación contraseñas iguales
         if contraseña != confirmarContraseña {
             errorContraseñasIguales = true
+        } else {
+            let manejadorDatos = SaveData()
+            var datosGuardados = manejadorDatos.guardar(correo: correo, contraseña: contraseña, nombre: "usuario" )
+            if datosGuardados {
+                registroOk = true
+            } else {
+                registroOk = false
+            }
         }
+        
     }
     
 }

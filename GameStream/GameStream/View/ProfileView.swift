@@ -35,6 +35,15 @@ struct ProfileView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 118, height: 118, alignment: .center)
                         .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                    
+                    // TODO Saludo con nombre
+                    var nombre = dameNombre()
+                    if nombre != "" {
+                        Text("Hola \(nombre)")
+                            .font(.title3)
+                            .foregroundStyle(.white)
+                            .padding(.top, 5)
+                    }
                 }
                 .padding(EdgeInsets(
                     top: 16,
@@ -55,6 +64,11 @@ struct ProfileView: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden()
     }
+    
+    func dameNombre() -> String {
+        return UserDefaults.standard.stringArray(forKey: "datosDeUsuario")![2]
+    }
+    
 }
 
 struct settingsModule: View {

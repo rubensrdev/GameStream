@@ -63,6 +63,7 @@ struct EditModule: View {
                 }
                 TextField("", text: $correo)
                     .keyboardType(.emailAddress)
+                    .foregroundStyle(.white)
             }
             Divider()
                 .frame(height: 1)
@@ -103,6 +104,7 @@ struct EditModule: View {
                         .foregroundStyle(.gray)
                 }
                 TextField("", text: $nombre)
+                    .foregroundStyle(.white)
             }
             Divider()
                 .frame(height: 1)
